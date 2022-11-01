@@ -1,0 +1,24 @@
+#include "ResourceIds.hpp"
+
+'STR#' ID_ADDON_INFO "Add-on Name and Description" {
+/* [  1] */		"ZuruTech IFC AddOn"
+/* [  2] */		"ZuruTech IFC Description..."
+}
+
+'STR#' ID_UIIFCMainMenu "Strings for the Menu" {
+/* [   ] */		"ZuruTech"
+/* [   ] */		"IFC"
+/* [  1] */		"Export...^E3 ^ES ^EE ^EI ^ED ^ET ^10001"
+}
+
+'GDLG' ID_UIIFCMainDialog Modal | grow   40   40  345  128  "Export IFC" {
+/* [  1] */ Button				  245   95   90   23	LargePlain  "OK"
+/* [  2] */ Button				  145   95   90   23	LargePlain  "Cancel"
+/* [  3] */ Separator			   10   83  325    2
+}
+
+'DLGH' ID_UIIFCMainDialog DLG_Example {
+1	""		Button_0
+2	""		Button_1
+3	""		Separator_0
+}
