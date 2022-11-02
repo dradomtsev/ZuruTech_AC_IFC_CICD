@@ -12,7 +12,8 @@ dest = sys.argv[2]
 if not os.path.exists (dest):
     os.makedirs (dest)
 
-fileName = urllib.parse.unquote (os.path.split (url)[1])
+fileName_temp = os.path.split (url)[1]
+fileName = urllib.parse.unquote (fileName_temp.split('?', 1)[0] )
 filePath = os.path.join (dest, fileName)
 
 urllib.request.urlretrieve (url, filePath)
