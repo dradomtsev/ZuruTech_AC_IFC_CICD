@@ -20,7 +20,7 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: Tapir Add-On AC26 Win
+        name: ZuruTech IFC Add-On AC26 Win
         path: archicad-addon/Build/AC26/RelWithDebInfo/ZuruTechIFCAddOn_AC26_Win.apx
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
