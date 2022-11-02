@@ -1,4 +1,4 @@
-[![Archicad Add-On Windows Build](https://github.com/dradomtsev/ZuruTech_AC_IFC_CICD/actions/workflows/archicad_addon_win.yml/badge.svg)](https://github.com/dradomtsev/ZuruTech_AC_IFC_CICD/actions/workflows/archicad_addon_win.yml)
+[![Archicad Add-On Windows Build](https://github.com/dradomtsev/ZuruTech_AC_IFC_CICD/actions/workflows/archicad_addon_win.yml/badge.svg?branch=0.1.0)](https://github.com/dradomtsev/ZuruTech_AC_IFC_CICD/actions/workflows/archicad_addon_win.yml)
 [![Archicad Add-On Windows Build Manual](https://github.com/dradomtsev/ZuruTech_AC_IFC_CICD/actions/workflows/archicad_addon_win_manual.yml/badge.svg?branch=master)](https://github.com/dradomtsev/ZuruTech_AC_IFC_CICD/actions/workflows/archicad_addon_win_manual.yml)
 
 # ZuruTech, Archicad IFC add-on with CI/CD
