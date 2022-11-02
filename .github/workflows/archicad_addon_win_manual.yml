@@ -21,12 +21,12 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Tapir Add-On AC26 Win
-        path: archicad-addon/Build/AC26/RelWithDebInfo/TapirAddOn_AC26_Win.apx
+        path: archicad-addon/Build/AC26/RelWithDebInfo/ZuruTechIFCAddOn_AC26_Win.apx
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: ncipollo/release-action@v1
       with:
-        artifacts: archicad-addon/Build/AC26/RelWithDebInfo/TapirAddOn_AC26_Win.apx
+        artifacts: archicad-addon/Build/AC26/RelWithDebInfo/ZuruTechIFCAddOn_AC26_Win.apx
         draft: true
         allowUpdates: true
         token: ${{ secrets.GITHUB_TOKEN }}
