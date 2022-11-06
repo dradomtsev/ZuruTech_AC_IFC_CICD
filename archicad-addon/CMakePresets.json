@@ -1,0 +1,53 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 21,
+        "patch": 0
+  },
+  "configurePresets": [
+    {
+        "name": "x64_v142_internal",
+        "displayName": "x64_v142 internal Config",
+        "description": "x64-v142 build using VS 16 2019 generator and internal storage",
+        "generator": "Visual Studio 16 2019",
+        "architecture": {
+            "value": "x64",
+            "strategy": "set"
+        },
+        "toolset": {
+            "value": "v142,host=x64",
+            "strategy": "set"
+        },
+        "binaryDir": "${sourceDir}/Build",
+        "cacheVariables": {
+            "CMAKE_C_COMPILER": "cl",
+            "CMAKE_CXX_COMPILER": "cl"
+          }
+    },
+    {
+      "name": "x64_v142_external",
+      "displayName": "x64_v142 external Config",
+      "description": "x64-v142 build using VS 16 2019 generator and external storage",
+      "generator": "Visual Studio 16 2019",
+      "architecture": {
+          "value": "x64",
+          "strategy": "set"
+      },
+      "toolset": {
+          "value": "v142,host=x64",
+          "strategy": "set"
+      },
+      "binaryDir": "C:/Users/drado/source/repos/dradomtsev/ZuruTech_AC_IFC",
+      "cacheVariables": {
+          "CMAKE_C_COMPILER": "cl",
+          "CMAKE_CXX_COMPILER": "cl"
+        }
+  }
+  ],
+  "vendor": {
+    "zuru.tech/CMake/1.0": {
+      "autoFormat": false
+    }
+  }
+}

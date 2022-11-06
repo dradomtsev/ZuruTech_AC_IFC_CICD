@@ -4,9 +4,10 @@ function (SetCompilerOptions target)
 	target_compile_features (${target} PUBLIC cxx_std_14)
 	target_compile_options (${target} PUBLIC "$<$<CONFIG:Debug>:-DDEBUG>")
 	if (WIN32)
-		target_compile_options (${target} PUBLIC /W4 /WX
+		target_compile_options (${target} PUBLIC /W3 /WX
 			/Zc:wchar_t-
 			/wd4499
+			/wd4496
 		)
 	else ()
 		target_compile_options (${target} PUBLIC -Wall -Wextra -Werror
@@ -124,6 +125,10 @@ else ()
 endif ()
 
 # AddOn
+set (FuncTest)
+set (ModelTest)
+file(COPY FuncTest DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ModelTest DESTINATION ${CMAKE_BINARY_DIR})
 
 file (GLOB AddOnHeaderFiles
 	${AddOnSourcesFolder}/*.h
