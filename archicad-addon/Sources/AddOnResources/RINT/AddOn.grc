@@ -2,7 +2,7 @@
 
 'STR#' ID_ADDON_INFO "Add-on Name and Description" {
 /* [  1] */		"ZuruTech IFC AddOn"
-/* [  2] */		"ZuruTech IFC Description..."
+/* [  2] */		"PoC for Zuru Tech. Processing IFC with ArchiCAD C++ API"
 }
 
 'STR#' ID_UIIFCMainMenu "Strings for the Menu" {

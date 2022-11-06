@@ -1,4 +1,3 @@
-//#include "pch.h"
 #include "FileExportIFC.hpp"
 #include "Helpers.h"
 #include <iostream>
@@ -7,27 +6,26 @@
 #include	"ACAPinc.h"		// also includes APIdefs.h
 #include	"APICommon.h"	// Helper functions for Add-On development
 
-void Zuru_Tech_AC::FileExportIFC::SaveFile(IO::Location pathOutputIFCFile)
+void Zuru_Tech_AC::FileExportIFC::SaveFile(IO::Location pathOutputIFCFile, API_Guid& viewGuid, API_IFCTranslatorIdentifier& ifcExportTranslator)
 {
-    API_IFCTranslatorIdentifier ifcExportTranslatorFirst;			// First IFC export translator in list
-    //std::multimap<GS::UniString,API_IFCTranslatorIdentifier> ifcExportTranslators_multimap;
-    GS::Array<API_IFCTranslatorIdentifier> ifcExportTranslators;	// List of IFC export translators
+    //API_IFCTranslatorIdentifier ifcExportTranslatorFirst;			// First IFC export translator in list
+    //GS::Array<API_IFCTranslatorIdentifier> ifcExportTranslators;	// List of IFC export translators
     GSErrCode errLast;
-    errLast = ACAPI_IFC_GetIFCExportTranslatorsList(ifcExportTranslators); // Get translators list
-    if (errLast != NoError)
-    {
-        WriteReport("Can't get IFC export translator");
-    }
+    //errLast = ACAPI_IFC_GetIFCExportTranslatorsList(ifcExportTranslators); // Get translators list
+    //if (errLast != NoError)
+    //{
+    //    WriteReport("Can't get IFC export translator");
+    //}
 
-    // Check IFC export translators list
-    if (DBVERIFY(!ifcExportTranslators.IsEmpty())) {
-        ifcExportTranslatorFirst = ifcExportTranslators.GetFirst();
-    }
+    //// Check IFC export translators list
+    //if (DBVERIFY(!ifcExportTranslators.IsEmpty())) {
+    //    ifcExportTranslatorFirst = ifcExportTranslators.GetFirst();
+    //}
 
     // Set parameters to save the current project as an Ifc file.
     API_SavePars_Ifc paramsSaveIFC = {};     // Init IFC save parameters
     paramsSaveIFC.subType = API_IFC;    // set IFC file type to "IFC". Selected from enum "API_IfcTypeID"
-    paramsSaveIFC.translatorIdentifier = ifcExportTranslatorFirst;  // Use specific IFC export translator
+    paramsSaveIFC.translatorIdentifier = ifcExportTranslator;  // Use specific IFC export translator
     paramsSaveIFC.elementsToIfcExport = API_EntireProject;          // Select element group fronm enum "API_ElementsToIfcExportID"
     paramsSaveIFC.elementsSet = nullptr; // use only when the elementsToIfcExport is set API_FilteredElements
 
@@ -45,7 +43,7 @@ void Zuru_Tech_AC::FileExportIFC::SaveFile(IO::Location pathOutputIFCFile)
     }
 };
 
-void Zuru_Tech_AC::FileProcessv01::FileExportIFC::SaveFile()
+std::tuple<GSErrCode, GS::UniString, GS::UniString, GS::UniString> Zuru_Tech_AC::FileProcessv01::FileExportIFC::SaveFile()
 {
     API_IFCTranslatorIdentifier ifcExportTranslatorFirst;			// First IFC export translator in list
     //std::multimap<GS::UniString,API_IFCTranslatorIdentifier> ifcExportTranslators_multimap;
@@ -81,11 +79,10 @@ void Zuru_Tech_AC::FileProcessv01::FileExportIFC::SaveFile()
         //ACAPI_WriteReport("Error in ACAPI_Automate(APIDo_SaveID,...) (IFC): %s", true, ErrID_To_Name(errLast));
         ACAPI_WriteReport("Error in ACAPI_Automate(APIDo_SaveID,...) (IFC)", true, "IFC saving error");
     }
-};
+    GS::UniString filePath;
+    paramsSaveFile.file->ToPath(&filePath);
+    GS::UniString translatorName = paramsSaveIFC.translatorIdentifier.name;
+    GS::UniString elementFilter = "API_EntireProject";
 
-//static IO::Location Zuru_Tech_AC::GetSpecialFolderLocation(API_SpecFolderID id)
-//{
-//    IO::Location folder;
-//    ACAPI_Environment(APIEnv_GetSpecFolderID, &id, &folder);
-//    return folder;
-//}
+    return std::make_tuple(errLast, filePath, translatorName, elementFilter);
+};

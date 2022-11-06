@@ -27,7 +27,6 @@ void Zuru_Tech_AC::UIIFCMainDialog::PanelResized(const DG::PanelResizeEvent& ev)
 void Zuru_Tech_AC::UIIFCMainDialog::ButtonClicked(const DG::ButtonClickEvent& ev)
 {
 	Zuru_Tech_AC::FileProcessv01::FileExportIFC *exporter = new Zuru_Tech_AC::FileProcessv01::FileExportIFC();
-	//Zuru_Tech_AC::FileExportIFC* exporter = Zuru_Tech_AC::createFileExportIFC();
 	if (ev.GetSource() == &okButton) {
 		
 		exporter->SaveFile();

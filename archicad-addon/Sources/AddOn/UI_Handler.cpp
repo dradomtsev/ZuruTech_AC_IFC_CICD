@@ -23,8 +23,8 @@ GSErrCode Zuru_Tech_AC::UIHandler::MenuCommandHandler(const API_MenuParams* menu
             const char* fileExtensIFC = "ifc";
             const GS::UniString& filterTextIFC = "IFC files(*.ifc)";
 
-            // const char* fileExtensIFCXML = "ifcxml";
-            // const GS::UniString& filterTextIFCXML = "IFC XML files(*.ifcxml)";
+            /*const char* fileExtensIFCXML = "ifcxml";
+            const GS::UniString& filterTextIFCXML = "IFC XML files(*.ifcxml)";*/
 
             // Init file types
             FTM::FileType typeIFC   (nullptr, fileExtensIFC, 0, 0, 0);
@@ -35,15 +35,38 @@ GSErrCode Zuru_Tech_AC::UIHandler::MenuCommandHandler(const API_MenuParams* menu
             //FTM::TypeID	idIFCXML    = FTM::FileTypeManager::SearchForType(typeIFCXML);
 
             // Add file type to file manager
-            if (idIFC == FTM::UnknownType) // || idIFCXML == FTM::UnknownType)
+            if (idIFC == FTM::UnknownType)// || idIFCXML == FTM::UnknownType)
             {
                 idIFC = fileTypeManager.AddType(typeIFC);
                 //idIFCXML = fileTypeManager.AddType(typeIFCXML);
             }
             
-            UIndex UIdIFC = diagSaveFile.AddFilter(idIFC, DG::FileDialog::DisplayExtensions); // Add file extension filter in "Save" dialog
+            GSErrCode lastError;
+            // Call file saver function
+            Zuru_Tech_AC::FileExportIFC* exporter = new Zuru_Tech_AC::FileExportIFC();
+
+            API_IFCTranslatorIdentifier ifcExportTranslator;			// First IFC export translator in list
+            GS::Array<API_IFCTranslatorIdentifier> ifcExportTranslators;	// List of IFC export translators
+            GSErrCode errLast;
+            errLast = ACAPI_IFC_GetIFCExportTranslatorsList(ifcExportTranslators); // Get translators list
+            if (errLast != NoError)
+            {
+                WriteReport("Can't get IFC export translator");
+            }
+
+            // Check IFC export translators list
+            if (DBVERIFY(!ifcExportTranslators.IsEmpty())) {
+                ifcExportTranslator = ifcExportTranslators.GetFirst();
+            }
+
+            // Call additional IFC settings dialog
+            API_Guid viewGuid = {};
+            lastError = ACAPI_IFC_InvokeIFCDifferenceExportSettingsDlg(viewGuid, ifcExportTranslator);
+            if (lastError != NoError)
+                return lastError;
 
             // Setup dialog
+            UIndex UIdIFC = diagSaveFile.AddFilter(idIFC, DG::FileDialog::DisplayExtensions); // Add file extension filter in "Save" dialog
             diagSaveFile.EnablePreview();
             diagSaveFile.SetFilterText(UIdIFC, filterTextIFC);
             diagSaveFile.SetTitle("Save as IFC...");
@@ -57,18 +80,16 @@ GSErrCode Zuru_Tech_AC::UIHandler::MenuCommandHandler(const API_MenuParams* menu
             // Call "Save" dialog. Check if diagSaveFile was cancelled
             if (!diagSaveFile.Invoke())
                 return NoError;
-
+            
             // Get last file location
             IO::Location location = diagSaveFile.GetSelectedFile();
+            exporter->SaveFile(location, viewGuid, ifcExportTranslator); // Call main SaveFile function
 
-            // Call file saver function
-            Zuru_Tech_AC::FileExportIFC* exporter = new Zuru_Tech_AC::FileExportIFC();
-            exporter->SaveFile(location);
             delete exporter;
             
             // Simple dialog, first iteration
-			//UIIFCMainDialog dialog;
-			//dialog.Invoke();
+			/*UIIFCMainDialog dialog;
+			dialog.Invoke();*/
 		}
 		break;
 		}

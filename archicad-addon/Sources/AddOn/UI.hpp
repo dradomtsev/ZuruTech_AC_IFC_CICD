@@ -30,7 +30,6 @@ namespace Zuru_Tech_AC
 			SeparatorId = 3
 		};
 
-		//ctor
 		UIIFCMainDialog() :
 			DG::ModalDialog(ACAPI_GetOwnResModule(), DialogResourceId, ACAPI_GetOwnResModule()),
 			okButton(GetReference(), OKButtonId),
@@ -41,7 +40,6 @@ namespace Zuru_Tech_AC
 			Attach(*this);
 		}
 
-		//dtor
 		~UIIFCMainDialog();
 	private:
 		DG::Button		okButton;
