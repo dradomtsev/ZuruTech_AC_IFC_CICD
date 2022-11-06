@@ -64,6 +64,7 @@ endif ()
 set (OutputName ${AC_ADDON_NAME}_AC${ARCHICAD_VERSION}_${OutputPostfix})
 project (${OutputName})
 
+
 set (AddOnSourcesFolder Sources/AddOn)
 set (AddOnResourcesFolder Sources/AddOnResources)
 
@@ -185,6 +186,7 @@ endif ()
 
 SetCompilerOptions (AddOn)
 set_source_files_properties (${AddOnSourceFiles} PROPERTIES LANGUAGE CXX)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT AddOn)
 
 file (GLOB ModuleFolders ${AC_API_DEVKIT_DIR}/Support/Modules/*)
 target_include_directories (AddOn PUBLIC ${ModuleFolders})
