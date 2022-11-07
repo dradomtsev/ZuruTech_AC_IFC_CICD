@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.16)
+cmake_minimum_required (VERSION 3.17)
 
 function (SetCompilerOptions target)
 	target_compile_features (${target} PUBLIC cxx_std_14)
